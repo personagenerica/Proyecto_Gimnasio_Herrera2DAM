@@ -2,6 +2,7 @@ package com.gimnasio.entity;
 
 import org.hibernate.validator.constraints.URL;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -22,6 +23,7 @@ public abstract class Actor extends DomainEntity{
 	
 	@NotBlank
 	@Email
+	@Column(nullable = false, unique = true) //Asegura que todos los usuarios tengan email y no se repita
 	private String email;
 	
 	@NotBlank
@@ -30,10 +32,14 @@ public abstract class Actor extends DomainEntity{
 	
 	@NotBlank
 	@Pattern(regexp="^[6-9][0-9]{8}$")
+	@Column(nullable = false, unique = true)
 	private String telefono;
 	
 	@Min(0)
 	private int edad;
+	//El rol no estaba
+	@NotBlank
+	private String rol;
 
 	public Actor() {
 		super();
@@ -51,6 +57,7 @@ public abstract class Actor extends DomainEntity{
 		this.edad = edad;
 	}
 
+	//GETTERS
 	public String getNombre() {
 		return nombre;
 	}
@@ -71,6 +78,10 @@ public abstract class Actor extends DomainEntity{
 		return email;
 	}
 
+	public String getRol() {
+		return rol;
+	}
+	//SETTERS
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -99,6 +110,8 @@ public abstract class Actor extends DomainEntity{
 		this.edad = edad;
 	}
 	
-	
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 	
 }
