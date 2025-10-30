@@ -35,12 +35,6 @@ public class CompraService {
             throw new IllegalArgumentException("La cantidad no puede ser negativa");
         }
 
-        // Evitar duplicar ticket (si se requiere único)
-        Optional<Compra> existente = compraRepository.findByTicket(compra.getTicket());
-        if (existente.isPresent()) {
-            throw new IllegalArgumentException("Ya existe una compra con ese ticket");
-        }
-
         return compraRepository.save(compra);
     }
 
