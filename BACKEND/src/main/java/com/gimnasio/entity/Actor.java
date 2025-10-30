@@ -1,5 +1,6 @@
 package com.gimnasio.entity;
 
+
 import org.hibernate.validator.constraints.URL;
 
 import jakarta.persistence.Column;
@@ -13,7 +14,7 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Actor extends DomainEntity{
+public abstract class Actor extends DomainEntity {
 
 	@NotBlank
 	private String nombre;
