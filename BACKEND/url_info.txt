@@ -1,7 +1,0 @@
-File: /educacion/eaprendizaje/moodle-centros/
-Host: www.juntadeandalucia.es
-Path: /educacion/eaprendizaje/moodle-centros/
-Protocolo: https
-Puerto: -1
-Consulta: null
-Puerto por defecto: 443
