@@ -26,6 +26,12 @@ public class GuardarProducto {
 
     // Leer datos de BBDD y meterlos en fichero
     public static Path Convertir(Path ruta) {
+    	/*try {
+        		if (Files.notExists(ruta, null)) 
+        		
+            		Files.createFile(ruta, null);
+            		
+        		}*/
     	//Url base de datos
         String url = "jdbc:postgresql://localhost:5432/gimnasio";
         String usuario = "postgres";
@@ -67,6 +73,7 @@ public class GuardarProducto {
         return null; // en caso de error
     }
 
+    
     // Leer el fichero y mostrarlo por consola
     public static void LeerArchivo(Path archivo) {
         System.out.println("\nContenido de " + archivo.toAbsolutePath() + ":\n");
