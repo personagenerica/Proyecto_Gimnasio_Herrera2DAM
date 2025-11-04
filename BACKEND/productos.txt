@@ -1,0 +1,10 @@
+1 | Agua mineral | 1.2€ | Unidades: 50 | Tipo: Bebida
+2 | Isotónica PowerGym | 2.5€ | Unidades: 40 | Tipo: Bebida
+3 | Proteína Whey Vainilla 1kg | 29.9€ | Unidades: 20 | Tipo: Suplemento
+4 | Creatina Monohidrato 500g | 18.5€ | Unidades: 15 | Tipo: Suplemento
+5 | BCAA 2:1:1 200g | 14.99€ | Unidades: 12 | Tipo: Suplemento
+6 | Guantes de entrenamiento M | 12.0€ | Unidades: 30 | Tipo: Accesorio
+7 | Guantes de entrenamiento L | 12.0€ | Unidades: 25 | Tipo: Accesorio
+8 | Toalla deportiva | 7.5€ | Unidades: 25 | Tipo: Accesorio
+9 | Botella deportiva 750ml | 9.0€ | Unidades: 60 | Tipo: Accesorio
+10 | Barrita proteica chocolate | 1.8€ | Unidades: 80 | Tipo: Snack

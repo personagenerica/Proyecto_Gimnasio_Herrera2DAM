@@ -26,11 +26,7 @@ public class AdminService {
     }
 
     public Admin save(Admin admin) {
-        // Validar que no exista otro admin con el mismo email
-        Optional<Admin> existente = adminRepository.findByEmail(admin.getEmail());
-        if (existente.isPresent()) {
-            throw new IllegalArgumentException("Ya existe un administrador con ese email");
-        }
+     
 
         return adminRepository.save(admin);
     }
