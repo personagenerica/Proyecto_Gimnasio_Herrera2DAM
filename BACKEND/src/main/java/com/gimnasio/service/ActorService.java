@@ -7,59 +7,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.entity.Actor;
-import com.gimnasio.entity.Producto;
 import com.gimnasio.repository.ActorRepository;
 
 @Service
 public class ActorService {
-@Autowired
 
-private ActorRepository actorRepository;
+    @Autowired
+    private ActorRepository actorRepository;
 
-//Creamos el CRUD
+    // --- CRUD básico ---
 
-public List<Actor> findAll(){
-	return actorRepository.findAll();
-}
-
-public Optional<Actor> findById(Integer id){
-	return actorRepository.findById(id);
-}
-
-//dudas
-
-public Actor save(Actor a) {
-    // Verificar si el email ya existe
-    Optional<Actor> existente = actorRepository.findByEmail(a.getEmail());
-    if (existente.isPresent()) {
-        throw new IllegalArgumentException("Ya existe un usuario con ese email");
+    public List<Actor> findAll() {
+        return actorRepository.findAll();
     }
 
-    return actorRepository.save(a);
-}
+    public Optional<Actor> findById(Integer id) {
+        return actorRepository.findById(id);
+    }
 
-public Actor update(Actor a, int id) {
-    Optional<Actor> oActor = actorRepository.findById(id);
+    public Actor save(Actor actor) {
+        // Verificar si el email ya existe
+        Optional<Actor> existente = actorRepository.findByEmail(actor.getEmail());
+        if (existente.isPresent()) {
+            throw new IllegalArgumentException("Ya existe un usuario con ese email");
+        }
 
-    if (oActor.isEmpty()) {
-        return null;
-    } else {
-        Actor actorNuevo = oActor.get();
+        return actorRepository.save(actor);
+    }
+
+    public Actor update(Actor actor, int id) {
+        Optional<Actor> optionalActor = actorRepository.findById(id);
+
+        if (optionalActor.isEmpty()) {
+            throw new IllegalArgumentException("No se encontró un actor con el ID proporcionado");
+        }
+
+        Actor actorExistente = optionalActor.get();
 
         // Actualiza los campos necesarios
-        actorNuevo.setNombre(a.getNombre());
-        actorNuevo.setApellidos(a.getApellidos());
-        actorNuevo.setEmail(a.getEmail());
-        actorNuevo.setFotografia(a.getFotografia());
-        actorNuevo.setTelefono(a.getTelefono());
-        actorNuevo.setEdad(a.getEdad());
+        actorExistente.setNombre(actor.getNombre());
+        actorExistente.setApellidos(actor.getApellidos());
+        actorExistente.setEmail(actor.getEmail());
+        actorExistente.setFotografia(actor.getFotografia());
+        actorExistente.setTelefono(actor.getTelefono());
+        actorExistente.setEdad(actor.getEdad());
 
-        return actorRepository.save(actorNuevo);
+        return actorRepository.save(actorExistente);
     }
-}
 
-public void delete (int id) {
-	actorRepository.deleteById(id);
-}
-	
+    public void delete(int id) {
+        if (!actorRepository.existsById(id)) {
+            throw new IllegalArgumentException("No se puede eliminar: el actor con ID " + id + " no existe");
+        }
+        actorRepository.deleteById(id);
+    }
 }

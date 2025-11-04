@@ -6,61 +6,62 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gimnasio.entity.Producto;
-import com.gimnasio.repository.ProductoRepository;
+import com.gimnasio.entity.Admin;
+import com.gimnasio.repository.AdminRepository;
 
 @Service
-
 public class AdminService {
-	@Autowired
-	private ProductoRepository productoRepository;
-	
-	public List<Producto> findAll(){
-		return productoRepository.findAll();
-	}
-	
-	
-	public Optional<Producto> findById( Integer id) {
-		
-		return productoRepository.findById(id);
-	}
-	
-	
-	public Producto save(Producto p) {
-		
-		return productoRepository.save(p);
-	}
-	
-	
-	public Producto update(Producto p, int id) {
-		
-		Optional<Producto> oProducto = findById(id);
-		
-		if (oProducto.isEmpty()) {
-			return null;
-		}else {
-			//Sacamos de la caja el producto
-			Producto productoBBDD=oProducto.get();
-			
-			//Seteamos uno a uno los campos
-			productoBBDD.setNombre(p.getNombre());
-			productoBBDD.setTipo(p.getTipo());
-			productoBBDD.setPrecio(p.getPrecio());
-			productoBBDD.setStock(p.getStock());
-			
-			return productoRepository.save(productoBBDD);
 
-		}
-		
-		
-	}
-	
-	
-	public void delete(int id) {
-		 productoRepository.deleteById(id);
-	}
-	 
-	
-	
-	
-	}
+    @Autowired
+    private AdminRepository adminRepository;
+
+    // --- CRUD básico ---
+
+    public List<Admin> findAll() {
+        return adminRepository.findAll();
+    }
+
+    public Optional<Admin> findById(Integer id) {
+        return adminRepository.findById(id);
+    }
+
+    public Admin save(Admin admin) {
+        // Validar que no exista otro admin con el mismo email
+        Optional<Admin> existente = adminRepository.findByEmail(admin.getEmail());
+        if (existente.isPresent()) {
+            throw new IllegalArgumentException("Ya existe un administrador con ese email");
+        }
+
+        return adminRepository.save(admin);
+    }
+
+    public Admin update(Admin admin, int id) {
+        Optional<Admin> optionalAdmin = adminRepository.findById(id);
+
+        if (optionalAdmin.isEmpty()) {
+            throw new IllegalArgumentException("No se encontró un administrador con el ID proporcionado");
+        }
+
+        Admin adminExistente = optionalAdmin.get();
+
+        // Actualizamos los campos heredados de Actor
+        adminExistente.setNombre(admin.getNombre());
+        adminExistente.setApellidos(admin.getApellidos());
+        adminExistente.setEmail(admin.getEmail());
+        adminExistente.setFotografia(admin.getFotografia());
+        adminExistente.setTelefono(admin.getTelefono());
+        adminExistente.setEdad(admin.getEdad());
+
+        // Si Admin tiene campos adicionales, actualízalos también:
+        adminExistente.setRol(admin.getRol());  // ← ejemplo de campo extra de Admin
+
+        return adminRepository.save(adminExistente);
+    }
+
+    public void delete(int id) {
+        if (!adminRepository.existsById(id)) {
+            throw new IllegalArgumentException("No se puede eliminar: el administrador con ID " + id + " no existe");
+        }
+        adminRepository.deleteById(id);
+    }
+}
