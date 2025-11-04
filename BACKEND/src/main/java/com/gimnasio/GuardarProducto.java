@@ -28,8 +28,8 @@ public class GuardarProducto {
     
     //Leer datos de BBDD y meterlos a fichero
     public static void Convertir(Path ruta) {
-        //En tu casa es gimnasio_db, cambiar si es necesario
-        String url="jdbc:postgresql://localhost:5432/gimnasio_db";
+        
+        String url="jdbc:postgresql://localhost:5432/gimnasio";
         String usuario="postgres";
         String contrasena="password";
 
