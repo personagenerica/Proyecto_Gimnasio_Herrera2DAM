@@ -49,19 +49,23 @@ public class GuardarProducto {
             BufferedWriter writer = Files.newBufferedWriter(archivo)
         ) {
             while (rs.next()) {
+            	//Preparamos los datos que vamos a guardar
+            	String encabezado="id | nombre | precio | Unidades | Tipo\n"
+            			+ "#########################################################\n";
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 double precio = rs.getDouble("precio");
                 int stock = rs.getInt("stock");
                 String tipo = rs.getString("tipo");
+                
                 //Escribimos en el fichero
-                writer.write(id + " | " + nombre + " | " + precio + "€ | Unidades: " + stock + " | Tipo: " + tipo);
+                writer.write(encabezado + id + " | " + nombre + " | " + precio + "€ |" + stock + " | Tipo: " + tipo);
                 writer.newLine();
             }
 
             System.out.println("Archivo creado en: " + archivo.toAbsolutePath());
             return archivo; // devuelve la ruta del archivo creado
-
+            //Manejo de errores
         } catch (SQLException e) {
             System.err.println("Error de base de datos:");
             e.printStackTrace();
@@ -77,7 +81,7 @@ public class GuardarProducto {
     // Leer el fichero y mostrarlo por consola
     public static void LeerArchivo(Path archivo) {
         System.out.println("\nContenido de " + archivo.toAbsolutePath() + ":\n");
-
+       
         try (BufferedReader reader = Files.newBufferedReader(archivo)) {
             String linea;
             while ((linea = reader.readLine()) != null) {

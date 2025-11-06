@@ -1,1 +1,3 @@
-0 | coca-cola | 10.0€ | Unidades: 5 | Tipo: bebida
+id | nombre | precio | Unidades | Tipo
+#########################################################
+0 | coca-cola | 10.0€ |5 | Tipo: bebida
