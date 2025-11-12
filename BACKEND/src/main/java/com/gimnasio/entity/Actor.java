@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -27,7 +28,7 @@ public abstract class Actor extends DomainEntity {
 	@Column(nullable = false, unique = true) //Asegura que todos los usuarios tengan email y no se repita
 	private String email;
 	
-	@NotBlank
+	@Column(nullable = true)
 	@URL
 	private String fotografia;
 	
@@ -113,6 +114,10 @@ public abstract class Actor extends DomainEntity {
 	
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+	
+	public void setId(int id) {
+		this.id=id;
 	}
 	
 }

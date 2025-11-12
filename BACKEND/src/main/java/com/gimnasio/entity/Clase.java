@@ -6,10 +6,12 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 
 @Entity
+@Table(name = "clase")
 public class Clase extends DomainEntity {
 
     @Future
