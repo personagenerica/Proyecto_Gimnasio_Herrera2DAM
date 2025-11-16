@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
-//no funciona crare nueva bbdd para probar
+//no funciona debido a que firestore guarda long
 public class MigracionService {
 
     @Autowired
