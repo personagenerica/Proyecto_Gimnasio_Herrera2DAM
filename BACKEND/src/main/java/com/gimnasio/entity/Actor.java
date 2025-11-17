@@ -42,7 +42,10 @@ public abstract class Actor extends DomainEntity {
 	//El rol no estaba
 	@NotBlank
 	private String rol;
-
+	//Firebase
+	@Column(name = "firebase_id", unique = true)
+	private String firebaseId;
+	
 	public Actor() {
 		super();
 	}
@@ -116,8 +119,17 @@ public abstract class Actor extends DomainEntity {
 		this.rol = rol;
 	}
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id=id;
+	}
+	
+	// getters y setters
+	public String getFirebaseId() {
+	    return firebaseId;
+	}
+
+	public void setFirebaseId(String firebaseId) {
+	    this.firebaseId = firebaseId;
 	}
 	
 }
