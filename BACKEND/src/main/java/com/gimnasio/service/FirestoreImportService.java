@@ -39,8 +39,8 @@ public class FirestoreImportService {
         CollectionReference usuariosRef = db.collection("usuarios");
         ApiFuture<QuerySnapshot> future = usuariosRef.get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-
-        int importados = 0;
+        
+        int importados = 0; //id usuario
         List<String> saltados = new ArrayList<>();
 
         for (DocumentSnapshot doc : documents) {
