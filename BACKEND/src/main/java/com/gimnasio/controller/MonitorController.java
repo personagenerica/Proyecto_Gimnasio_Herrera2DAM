@@ -17,7 +17,7 @@ import com.gimnasio.entity.Monitor;
 import com.gimnasio.service.MonitorService;
 
 @RestController
-@RequestMapping("/Monitor")
+@RequestMapping("/monitor")
 public class MonitorController {
 	@Autowired
 	

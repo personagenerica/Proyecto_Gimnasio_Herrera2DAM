@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 
 @Entity
-@Table(name = "clase")
 public class Clase extends DomainEntity {
 
     @Future

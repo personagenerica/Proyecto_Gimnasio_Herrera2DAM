@@ -10,8 +10,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "compra")
-
 public class Compra extends DomainEntity {
 	@NotBlank
 	private String ticket;

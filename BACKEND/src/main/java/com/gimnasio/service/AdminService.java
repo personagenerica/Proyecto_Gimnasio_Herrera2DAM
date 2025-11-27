@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gimnasio.entity.Actor;
 import com.gimnasio.entity.Admin;
 import com.gimnasio.repository.AdminRepository;
 
@@ -60,4 +61,10 @@ public class AdminService {
         }
         adminRepository.deleteById(id);
     }
+
+
+	public Optional<Actor> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

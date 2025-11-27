@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.entity.Actor;
@@ -61,4 +62,14 @@ public class ActorService {
         }
         actorRepository.deleteById(id);
     }
+
+	public Optional<Actor> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public UserDetails loadUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

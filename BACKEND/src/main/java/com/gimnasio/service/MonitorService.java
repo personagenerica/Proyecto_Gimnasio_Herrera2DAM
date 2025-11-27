@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gimnasio.entity.Actor;
 import com.gimnasio.entity.Monitor;
 import com.gimnasio.repository.MonitorRepository;
 
@@ -53,4 +54,9 @@ public class MonitorService {
     public void delete(int id) {
         monitorRepository.deleteById(id);
     }
+
+	public Optional<Actor> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

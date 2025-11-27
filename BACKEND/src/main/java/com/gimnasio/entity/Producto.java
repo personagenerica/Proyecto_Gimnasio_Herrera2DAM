@@ -1,12 +1,10 @@
 package com.gimnasio.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "producto")
 
 public class Producto extends DomainEntity{
 	@NotBlank

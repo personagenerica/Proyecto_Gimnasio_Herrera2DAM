@@ -1,13 +1,13 @@
 package com.gimnasio.entity;
 
-
 import org.hibernate.validator.constraints.URL;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -17,6 +17,14 @@ import jakarta.validation.constraints.Pattern;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Actor extends DomainEntity {
 
+<<<<<<< HEAD
+    @NotBlank
+    private String nombre;
+
+    @NotBlank
+    @Column(unique = true)
+    private String username;
+=======
 	@NotBlank
 	private String nombre;
 	
@@ -49,68 +57,130 @@ public abstract class Actor extends DomainEntity {
 	public Actor() {
 		super();
 	}
+>>>>>>> 6e77e486563b504563e72cf4196fb30b09d2da1c
 
-	public Actor(@NotBlank String nombre, @NotBlank String apellidos, @NotBlank @Email String email,
-			@NotBlank @URL String fotografia, @NotBlank @Pattern(regexp = "^[6-9][0-9]{8}$") String telefono,
-			@Min(0) int edad) {
-		super();
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.email = email;
-		this.fotografia = fotografia;
-		this.telefono = telefono;
-		this.edad = edad;
-	}
+    @NotBlank
+    private String apellidos;
 
-	//GETTERS
-	public String getNombre() {
-		return nombre;
-	}
+    @NotBlank
+    @Email
+    @Column(nullable = false, unique = true)
+    private String email;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    @Column(nullable = true)
+    @URL
+    private String fotografia;
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    @NotBlank
+    @Pattern(regexp = "^[6-9][0-9]{8}$")
+    @Column(nullable = false, unique = true)
+    private String telefono;
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    @Min(0)
+    private int edad;
 
-	public String getEmail() {
-		return email;
-	}
+    @Enumerated(EnumType.STRING) // Guardar enum como String en DB
+    @Column(nullable = false)
+    private Rol rol;
 
-	public String getRol() {
-		return rol;
-	}
-	//SETTERS
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @NotBlank
+    private String password;
 
-	public String getFotografia() {
-		return fotografia;
-	}
+    public Actor() {
+        super();
+    }
 
-	public void setFotografia(String fotografia) {
-		this.fotografia = fotografia;
-	}
+    public Actor(@NotBlank String nombre, @NotBlank String username, @NotBlank String apellidos,
+                 @NotBlank @Email String email, @URL String fotografia,
+                 @NotBlank @Pattern(regexp = "^[6-9][0-9]{8}$") String telefono,
+                 @Min(0) int edad, Rol rol,
+                 @NotBlank String password) {
+        super();
+        this.nombre = nombre;
+        this.username = username;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.fotografia = fotografia;
+        this.telefono = telefono;
+        this.edad = edad;
+        this.rol = rol;
+        this.password = password;
+    }
 
-	public String getTelefono() {
-		return telefono;
-	}
+    // GETTERS Y SETTERS
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public int getEdad() {
-		return edad;
-	}
+    public String getApellidos() {
+        return apellidos;
+    }
 
+<<<<<<< HEAD
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFotografia() {
+        return fotografia;
+    }
+
+    public void setFotografia(String fotografia) {
+        this.fotografia = fotografia;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+=======
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
@@ -132,4 +202,8 @@ public abstract class Actor extends DomainEntity {
 	    this.firebaseId = firebaseId;
 	}
 	
+<<<<<<< Updated upstream
+=======
+>>>>>>> 6e77e486563b504563e72cf4196fb30b09d2da1c
+>>>>>>> Stashed changes
 }
