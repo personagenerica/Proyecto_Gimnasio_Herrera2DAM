@@ -3,6 +3,7 @@ package com.gimnasio.service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.gimnasio.entity.Rol;
 import com.gimnasio.entity.Usuario;
 import com.gimnasio.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ public class MigracionService {
 
                 usuario.setFotografia(doc.contains("fotografia") && !((String) doc.get("fotografia")).isBlank() ? (String) doc.get("fotografia") : "https://via.placeholder.com/150");
                 usuario.setEdad(doc.contains("edad") ? ((Long) doc.get("edad")).intValue() : 0);
-                usuario.setRol(doc.contains("role") && !((String) doc.get("role")).isBlank() ? (String) doc.get("role") : "usuario");
-
+                String rolString = doc.contains("role") && !((String) doc.get("role")).isBlank() ? (String) doc.get("role") : "USUARIO";
+                usuario.setRol(Rol.valueOf(rolString.toUpperCase())); // Convierte a mayúsculas para coincidir con el Enum
                 // Guardar usuario en PostgreSQL
                 usuarioRepository.save(usuario);
 

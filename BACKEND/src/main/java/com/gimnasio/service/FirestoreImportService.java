@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
+//Fallos por los cambios de seguridad
 @Service
 public class FirestoreImportService {
 
@@ -50,7 +50,7 @@ public class FirestoreImportService {
             usuario.setApellidos(doc.getString("apellido")); // Firestore "apellido"
             usuario.setEmail(doc.getString("email"));
             usuario.setTelefono(doc.getString("telefono"));
-            usuario.setRol(doc.getString("role")); // Firestore "role"
+            usuario.setRol(doc.getRol("role")); // Firestore "role"
 
             Long edadLong = doc.getLong("edad");
             usuario.setEdad(edadLong != null ? edadLong.intValue() : 0);
