@@ -39,39 +39,6 @@ public class ActorController {
     @Autowired
     private JWTUtils jwtUtils;
 
-    @Autowired
-    private ActorService actorService;
-
-    @GetMapping("")
-    @Operation(summary = "Listar todos los actores")
-    public List<Actor> findAll() {
-        return actorService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    @Operation(summary = "Obtener actor por ID")
-    public Actor findById(@PathVariable int id) {
-        Optional<Actor> oActor = actorService.findById(id);
-        return oActor.orElse(null);
-    }
-
-    @PostMapping
-    @Operation(summary = "Crear un nuevo actor")
-    public void save(@RequestBody Actor a) {
-        actorService.save(a);
-    }
-
-    @PutMapping("/{id}")
-    @Operation(summary = "Actualizar un actor existente")
-    public void update(@RequestBody Actor a, @PathVariable int id) {
-        actorService.update(a, id);
-    }
-
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Eliminar un actor por ID")
-    public void delete(@PathVariable int id) {
-        actorService.delete(id);
-    }
 
     @PostMapping("/login")
     @Operation(summary = "Login de actor y generación de JWT")

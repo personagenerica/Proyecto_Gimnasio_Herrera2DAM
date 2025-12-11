@@ -17,7 +17,7 @@ import com.gimnasio.entity.Producto;
 import com.gimnasio.service.ProductoService;
 
 @RestController
-@RequestMapping("/Producto")
+@RequestMapping("/producto")
 public class ProductoController {
 	@Autowired
 	

@@ -83,6 +83,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!--Dependencia necesaria para poder realizar login con Postman-->
+<dependency>
+ <groupId>javax.xml.bind</groupId>
+<artifactId>jaxb-api</artifactId>
+<version>2.4.0-b180830.0359</version>
+</dependency>
     </dependencies>
 
     <build>

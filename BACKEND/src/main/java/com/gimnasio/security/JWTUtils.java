@@ -25,7 +25,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JWTUtils {
 
-    private static final String JWT_FIRMA = "mrBibliomante";
+    private static final String JWT_FIRMA = "firma_token";
     private static final long EXTENCION_TOKEN = 86400000; // 24 horas
 
     @Autowired

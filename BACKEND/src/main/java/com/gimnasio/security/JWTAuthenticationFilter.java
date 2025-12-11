@@ -22,7 +22,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final ActorService actorService;
 
-    @Autowired
+    
     public JWTAuthenticationFilter(ActorService actorService) {
         this.actorService = actorService;
     }

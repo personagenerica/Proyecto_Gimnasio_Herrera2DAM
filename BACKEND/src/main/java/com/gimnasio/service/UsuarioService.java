@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.entity.Actor;
+import com.gimnasio.entity.Rol;
 import com.gimnasio.entity.Usuario;
 import com.gimnasio.repository.UsuarioRepository;
 
@@ -15,6 +17,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    
+    @Autowired
+	private PasswordEncoder passwordEncoder;
 
     // --- CRUD básico ---
 
@@ -27,8 +32,8 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
-        // Validar que no exista otro usuario con el mismo email
-    	
+    	usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+    	usuario.setRol(Rol.Usuario);
         return usuarioRepository.save(usuario);
     }
 

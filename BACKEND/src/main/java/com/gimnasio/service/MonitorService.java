@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.entity.Actor;
 import com.gimnasio.entity.Monitor;
+import com.gimnasio.entity.Rol;
 import com.gimnasio.repository.MonitorRepository;
 
 @Service
@@ -15,7 +17,8 @@ public class MonitorService {
 
     @Autowired
     private MonitorRepository monitorRepository;
-
+    @Autowired
+	private PasswordEncoder passwordEncoder;
     // --- CRUD básico ---
 
     public List<Monitor> findAll() {
@@ -27,7 +30,8 @@ public class MonitorService {
     }
 
     public Monitor save(Monitor monitor) {
-
+    	monitor.setPassword(passwordEncoder.encode(monitor.getPassword()));
+    	monitor.setRol(Rol.Monitor);
         return monitorRepository.save(monitor);
     }
 

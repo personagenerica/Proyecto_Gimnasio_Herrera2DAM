@@ -18,7 +18,7 @@ import com.gimnasio.service.CompraService;
 
 
 @RestController
-@RequestMapping("/Compra")
+@RequestMapping("/compra")
 public class CompraController {
 	@Autowired
 	

@@ -44,8 +44,6 @@ public abstract class Actor extends DomainEntity {
     @Min(0)
     private int edad;
 
-    @Enumerated(EnumType.STRING) // Guardar enum como String en DB
-    @Column(nullable = false)
     private Rol rol;
 
     @NotBlank

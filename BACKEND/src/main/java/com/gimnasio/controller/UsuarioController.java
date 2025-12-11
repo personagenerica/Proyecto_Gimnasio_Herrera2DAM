@@ -19,7 +19,7 @@ import com.gimnasio.repository.UsuarioRepository;
 import com.gimnasio.service.UsuarioService;
 
 @RestController
-@RequestMapping("/Usuario")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
