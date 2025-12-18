@@ -21,7 +21,7 @@ public class Compra extends DomainEntity {
 	
 	
 	@ManyToMany
-	private List<Usuario> usuarios;
+	private Usuario usuarios;
 
 
 	public Compra() {
@@ -29,7 +29,7 @@ public class Compra extends DomainEntity {
 	}
 
 
-	public Compra(@NotBlank String ticket, @Min(0) int cantidad, Producto producto, List<Usuario> usuarios) {
+	public Compra(@NotBlank String ticket, @Min(0) int cantidad, Producto producto, Usuario usuarios) {
 		super();
 		this.ticket = ticket;
 		this.cantidad = cantidad;
@@ -68,12 +68,12 @@ public class Compra extends DomainEntity {
 	}
 
 
-	public List<Usuario> getUsuarios() {
+	public Usuario getUsuarios() {
 		return usuarios;
 	}
 
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(Usuario usuarios) {
 		this.usuarios = usuarios;
 	}
 	
