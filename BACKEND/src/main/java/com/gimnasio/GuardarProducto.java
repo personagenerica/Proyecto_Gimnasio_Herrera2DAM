@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+//Crear controlador
 public class GuardarProducto {
 
     public static void main(String[] args) {
