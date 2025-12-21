@@ -50,15 +50,7 @@ public class CompraController {
 		compraService.save(compra);
 	}
 	
-	@PutMapping("/{id}")
-	public void update(@RequestBody Compra compra,@PathVariable int id) {
-		compraService.update(compra,id);
-	}
-	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable int id) {
-		compraService.delete(id);
-	}	
+
 	
 
 }
