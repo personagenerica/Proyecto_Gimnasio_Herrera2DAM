@@ -1,5 +1,6 @@
 package com.gimnasio.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,44 +15,54 @@ import com.gimnasio.security.JWTUtils;
 @Service
 public class CompraService {
 
-	@Autowired
-	private CompraRepository compraRepository;
+    @Autowired
+    private CompraRepository compraRepository;
 
-	@Autowired
-	private JWTUtils JWTUtils;
+    @Autowired
+    private JWTUtils JWTUtils;
 
-	// --- CRUD básico ---
+    // --- CRUD básico ---
 
-	public List<Compra> findAll() {
-		return compraRepository.findAll();
-	}
+    public List<Compra> findAll() {
+        return compraRepository.findAll();
+    }
 
-	public Optional<Compra> findById(Integer id) {
-		//Comprobamos que la compra tiene algo y que el usuario que consulta consulte su compra no otra cualquiera
-		Optional<Compra> res = null;
-		Optional<Compra> comprao = compraRepository.findById(id);
-		if (comprao.isPresent()) {
-			Usuario user = JWTUtils.userLogin();
-			if (user.equals(comprao.get().getUsuarios())) {
-				res = comprao;
-			}
-		}
-		return res;
-	}
+    public Optional<Compra> findById(Integer id) {
+        Optional<Compra> res = Optional.empty();
+        Optional<Compra> comprao = compraRepository.findById(id);
 
-	public Compra save(Compra compra) {
-		Usuario user = JWTUtils.userLogin();
-		compra.setUsuarios(user);
-		// Validaciones básicas
-		if (compra.getTicket() == null || compra.getTicket().trim().isEmpty()) {
-			throw new IllegalArgumentException("El ticket no puede estar vacío");
-		}
+        if (comprao.isPresent()) {
+            Usuario user = JWTUtils.userLogin();
 
-		if (compra.getCantidad() < 0) {
-			throw new IllegalArgumentException("La cantidad no puede ser negativa");
-		}
+            // Verificamos si la lista de usuarios contiene al usuario actual
+            if (comprao.get().getUsuarios() != null && comprao.get().getUsuarios().contains(user)) {
+                res = comprao;
+            }
+        }
 
-		return compraRepository.save(compra);
-	}
+        return res;
+    }
 
+    public Compra save(Compra compra) {
+        Usuario user = JWTUtils.userLogin();
+
+        // Inicializamos la lista si es null
+        if (compra.getUsuarios() == null) {
+            compra.setUsuarios(new ArrayList<>());
+        }
+
+        // Agregamos el usuario actual a la lista
+        compra.getUsuarios().add(user);
+
+        // Validaciones básicas
+        if (compra.getTicket() == null || compra.getTicket().trim().isEmpty()) {
+            throw new IllegalArgumentException("El ticket no puede estar vacío");
+        }
+
+        if (compra.getCantidad() < 0) {
+            throw new IllegalArgumentException("La cantidad no puede ser negativa");
+        }
+
+        return compraRepository.save(compra);
+    }
 }
