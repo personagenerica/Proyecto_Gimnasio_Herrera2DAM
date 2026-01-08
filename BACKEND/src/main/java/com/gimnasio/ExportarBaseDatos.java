@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExportarBaseDatos {
+	//Funciona con actor solo que mo hay datos
 
     private static final String URL = "jdbc:postgresql://localhost:5432/gimnasio";
     private static final String USER = "postgres";
