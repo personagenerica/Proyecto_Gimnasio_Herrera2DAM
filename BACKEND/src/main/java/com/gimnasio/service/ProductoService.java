@@ -27,7 +27,6 @@ public class ProductoService {
 	
 	
 	public Producto save(Producto p) {
-		
 		return productoRepository.save(p);
 	}
 	

@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-
 public class Producto extends DomainEntity{
 	@NotBlank
 	private String tipo;

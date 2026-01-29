@@ -1,2 +1,0 @@
-edad | rol | compra_id | id | dtype | apellidos | email | firebase_id | fotografia | nombre | password | telefono | username | 
-==============================================

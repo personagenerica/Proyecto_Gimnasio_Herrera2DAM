@@ -1,4 +1,7 @@
 package com.gimnasio.security;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,39 +15,52 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Autowired
-    private JWTAuthenticationFilter JWTAuthenticationFilter;
+	@Autowired
+	private JWTAuthenticationFilter JWTAuthenticationFilter;
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConf) throws Exception {
-        return authConf.getAuthenticationManager();
-    }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConf) throws Exception {
+		return authConf.getAuthenticationManager();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/admin").hasAuthority("ADMIN")
-                .requestMatchers("/usuario/**").hasAnyAuthority("USUARIO", "ADMIN")
-                .requestMatchers("/login").permitAll()
-                .anyRequest().permitAll()
-            .and()
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+				// Se habilita CORS
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+		http.addFilterBefore(JWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		return http.build();
+	}
 
-        http.addFilterBefore(JWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration conf = new CorsConfiguration();
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		// Permitir peticiones solo desde este origen (frontend)
+		conf.setAllowedOriginPatterns(List.of("https://nombreCliente.com"));
+		// Permitir estos métodos HTTP
+		conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		// Permitir estas cabeceras en las peticiones
+		conf.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+		// Permitir enviar cookies o credenciales en las peticiones
+		conf.setAllowCredentials(true);
+		// Asociar esta configuración a todas las rutas (/**)
+		source.registerCorsConfiguration("/**", conf);
+		return source;
+	}
 
-        return http.build();
-    }
 }
