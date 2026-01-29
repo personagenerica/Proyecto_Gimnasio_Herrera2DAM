@@ -48,19 +48,16 @@ public class SecurityConfiguration {
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration conf = new CorsConfiguration();
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		// Permitir peticiones solo desde este origen (frontend)
-		conf.setAllowedOriginPatterns(List.of("https://nombreCliente.com"));
-		// Permitir estos métodos HTTP
-		conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		// Permitir estas cabeceras en las peticiones
-		conf.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-		// Permitir enviar cookies o credenciales en las peticiones
-		conf.setAllowCredentials(true);
-		// Asociar esta configuración a todas las rutas (/**)
-		source.registerCorsConfiguration("/**", conf);
-		return source;
+	    CorsConfiguration conf = new CorsConfiguration();
+	    conf.setAllowedOriginPatterns(List.of("*"));
+	    conf.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+	    conf.setAllowedHeaders(List.of("*"));
+	    conf.setAllowCredentials(false); // 👈 IMPORTANTE
+
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", conf);
+	    return source;
 	}
+
 
 }
