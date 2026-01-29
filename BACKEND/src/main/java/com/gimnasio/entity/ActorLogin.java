@@ -1,6 +1,7 @@
 package com.gimnasio.entity;
 
 public class ActorLogin {
+	//El username puede ser el email
 		private String username;
 		private String password;
 		public String getUsername() {
