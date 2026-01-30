@@ -47,8 +47,6 @@ public abstract class Actor extends DomainEntity {
     @NotBlank
     private String password;
 
-    @Column(name = "firebase_id", unique = true)
-    private String firebaseId;
 
     public Actor() {
         super();
@@ -99,7 +97,5 @@ public abstract class Actor extends DomainEntity {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getFirebaseId() { return firebaseId; }
-    public void setFirebaseId(String firebaseId) { this.firebaseId = firebaseId; }
-
+   
 }

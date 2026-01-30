@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.entity.Actor;
@@ -22,6 +23,9 @@ public class ActorService implements UserDetailsService {
 
     @Autowired
     private ActorRepository actorRepository;
+    
+
+
 
     // --- CRUD básico ---
 
@@ -40,8 +44,11 @@ public class ActorService implements UserDetailsService {
             throw new IllegalArgumentException("Ya existe un usuario con ese email");
         }
 
+       
+
         return actorRepository.save(actor);
     }
+
 
     public Actor update(Actor actor, int id) {
         Optional<Actor> optionalActor = actorRepository.findById(id);
