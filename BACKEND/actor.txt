@@ -1,0 +1,2 @@
+dtype | id | apellidos | edad | email | firebase_id | fotografia | nombre | password | rol | telefono | username | compra_id | 
+==============================================
