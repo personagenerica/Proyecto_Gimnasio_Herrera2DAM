@@ -15,7 +15,7 @@ public abstract class DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // IDs únicos
-    protected Long id; // Usar Long es más seguro con Hibernate
+    protected int id; // Usar Long es más seguro con Hibernate
     
     @Version
     private int version;
@@ -26,12 +26,12 @@ public abstract class DomainEntity {
     }
 
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
