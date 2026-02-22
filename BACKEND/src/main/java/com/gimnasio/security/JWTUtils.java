@@ -104,7 +104,7 @@ public class JWTUtils {
 
         Actor actor = actorO.get();
         switch (actor.getRol()) {
-        //He creado los finbyusername en sus respectios service mirar luego
+        //He creado los finbyusername en sus respectivos service mirar luego
             case Usuario:
                 return (T) UsuarioService.findByUsername(username).orElse(null);
             case Admin:

@@ -1,3 +1,2 @@
 edad | id | version | apellidos | email | fotografia | nombre | password | rol | telefono | username | 
 ==============================================
-22 | 4 | 0 | a | a@gmail.com | null | a | 123456 | Usuario | 673276770 | a | 
