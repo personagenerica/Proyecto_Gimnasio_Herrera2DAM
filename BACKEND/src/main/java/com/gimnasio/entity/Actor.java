@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.URL;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.validation.constraints.Email;
@@ -13,7 +15,7 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Actor extends DomainEntity {
+public class Actor extends DomainEntity {
 
     @NotBlank
     private String nombre;
@@ -42,6 +44,8 @@ public abstract class Actor extends DomainEntity {
     @Min(0)
     private int edad;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Rol rol;
 
     @NotBlank
