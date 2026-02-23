@@ -68,7 +68,7 @@ public class AdminService {
 	}
 
 	public Optional<Actor> findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return adminRepository.findByUsername(username);
+
 	}
 }

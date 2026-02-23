@@ -38,6 +38,10 @@ public class JWTUtils {
     
     @Autowired
     @Lazy
+    private UsuarioService usuarioService;
+    
+    @Autowired
+    @Lazy
     private MonitorService monitorService;
 
     // Obtener token del header Authorization
@@ -106,7 +110,7 @@ public class JWTUtils {
         switch (actor.getRol()) {
         //He creado los finbyusername en sus respectivos service mirar luego
             case Usuario:
-                return (T) UsuarioService.findByUsername(username).orElse(null);
+                return (T) usuarioService.findByUsername(username).orElse(null);
             case Admin:
                 return (T) adminService.findByUsername(username).orElse(null);
             case Monitor:

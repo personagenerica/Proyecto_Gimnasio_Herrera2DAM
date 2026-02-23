@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,23 +38,26 @@ public class ActorController {
     // ============================
     @PostMapping("/login")
     @Operation(summary = "Login de actor y generación de JWT")
-    public ResponseEntity<Map<String, String>> login(@RequestBody ActorLogin actorLogin) {
+    public ResponseEntity<?> login(@RequestBody ActorLogin actorLogin) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        actorLogin.getUsername(),
-                        actorLogin.getPassword()
-                )
-        );
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            actorLogin.getUsername(),
+                            actorLogin.getPassword()
+                    )
+            );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtUtils.generateToken(authentication);
+            String token = jwtUtils.generateToken(authentication);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
+            return ResponseEntity.ok(token);
 
-        return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Usuario o contraseña incorrectos");
+        }
     }
 
     // ============================
@@ -121,15 +125,26 @@ public class ActorController {
 
         return ResponseEntity.ok(guardado);
     }
-    
+
+    // ============================
+    // OBTENER TODOS LOS ACTORES
+    // ============================
     @GetMapping
-    @Operation(summary = "Obtener todos los actores (Usuarios, Admins, Monitores)")
+    @Operation(summary = "Obtener todos los actores")
     public ResponseEntity<?> getAllActores() {
         try {
-            // Llamamos al servicio que trae todos los actores
             return ResponseEntity.ok(actorService.findAll());
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al obtener actores: " + e.getMessage());
+            return ResponseEntity.status(500)
+                    .body("Error al obtener actores: " + e.getMessage());
         }
+    }
+
+    // ============================
+    // OBTENER USUARIO DEL TOKEN
+    // ============================
+    @GetMapping("/actorLogin")
+    public ResponseEntity<Actor> userLogin() {
+        return ResponseEntity.ok(jwtUtils.userLogin());
     }
 }

@@ -64,8 +64,9 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-	public static Optional<Actor> findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Actor> findByUsername(String username) {
+
+		
+		return usuarioRepository.findByUsername(username);
 	}
 }

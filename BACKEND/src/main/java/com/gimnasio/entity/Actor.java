@@ -32,8 +32,7 @@ public abstract class Actor extends DomainEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = true)
-    @URL
+   
     private String fotografia;
 
     @NotBlank
