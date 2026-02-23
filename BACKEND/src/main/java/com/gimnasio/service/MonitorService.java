@@ -60,7 +60,6 @@ public class MonitorService {
     }
 
 	public Optional<Actor> findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return monitorRepository.findByUsername(username);
 	}
 }

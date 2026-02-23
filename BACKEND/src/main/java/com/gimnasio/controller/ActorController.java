@@ -52,10 +52,7 @@ public class ActorController {
 
             String token = jwtUtils.generateToken(authentication);
 
-            Map<String, String> response = new HashMap<>();
-            response.put("token", token);
-
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(token);
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
