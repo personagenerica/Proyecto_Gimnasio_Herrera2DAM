@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Actor extends DomainEntity {
+public abstract class Actor extends DomainEntity {
 
     @NotBlank
     private String nombre;
