@@ -1,5 +1,8 @@
 package com.gimnasio.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,23 +10,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-<<<<<<< Updated upstream
 import org.springframework.web.bind.annotation.*;
 
 import com.gimnasio.entity.*;
-=======
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.gimnasio.entity.Actor;
-import com.gimnasio.entity.ActorLogin;
->>>>>>> Stashed changes
 import com.gimnasio.security.JWTUtils;
 import com.gimnasio.service.ActorService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -44,34 +37,30 @@ public class ActorController {
     // LOGIN
     // ============================
     @PostMapping("/login")
-<<<<<<< Updated upstream
     @Operation(summary = "Login de actor y generación de JWT")
-    public ResponseEntity<Map<String, String>> login(@RequestBody ActorLogin actorLogin) {
+    public ResponseEntity<?> login(@RequestBody ActorLogin actorLogin) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        actorLogin.getUsername(),
-                        actorLogin.getPassword()
-                )
-        );
-=======
-	public ResponseEntity<String> login(@RequestBody ActorLogin actorLogin) {
-		try {
-			Authentication authentication = authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(actorLogin.getUsername(), actorLogin.getPassword()));
->>>>>>> Stashed changes
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            actorLogin.getUsername(),
+                            actorLogin.getPassword()
+                    )
+            );
 
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			String token = JWTUtils.generateToken(authentication);
-			return ResponseEntity.ok(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-<<<<<<< Updated upstream
-        String token = jwtUtils.generateToken(authentication);
+            String token = jwtUtils.generateToken(authentication);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
 
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Usuario o contraseña incorrectos");
+        }
     }
 
     // ============================
@@ -139,27 +128,26 @@ public class ActorController {
 
         return ResponseEntity.ok(guardado);
     }
-    
+
+    // ============================
+    // OBTENER TODOS LOS ACTORES
+    // ============================
     @GetMapping
-    @Operation(summary = "Obtener todos los actores (Usuarios, Admins, Monitores)")
+    @Operation(summary = "Obtener todos los actores")
     public ResponseEntity<?> getAllActores() {
         try {
-            // Llamamos al servicio que trae todos los actores
             return ResponseEntity.ok(actorService.findAll());
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al obtener actores: " + e.getMessage());
+            return ResponseEntity.status(500)
+                    .body("Error al obtener actores: " + e.getMessage());
         }
     }
-}
-=======
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
-		}
-	}
-    
+
+    // ============================
+    // OBTENER USUARIO DEL TOKEN
+    // ============================
     @GetMapping("/actorLogin")
-	public ResponseEntity<Actor> userLogin() {
-		return ResponseEntity.ok(jwtUtils.userLogin());
-	}
+    public ResponseEntity<Actor> userLogin() {
+        return ResponseEntity.ok(jwtUtils.userLogin());
+    }
 }
->>>>>>> Stashed changes
