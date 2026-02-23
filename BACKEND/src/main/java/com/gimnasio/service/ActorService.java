@@ -41,6 +41,7 @@ public class ActorService implements UserDetailsService {
         // Verificar si el email ya existe
         Optional<Actor> existente = actorRepository.findByEmail(actor.getEmail());
         if (existente.isPresent()) {
+        	
             throw new IllegalArgumentException("Ya existe un usuario con ese email");
         }
 
@@ -85,6 +86,7 @@ public class ActorService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Actor> actorO = this.findByUsername(username);
 		if (actorO.isPresent()) {
+			
 			Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority(actorO.get().getRol().toString()));
 			User user = new User(actorO.get().getUsername(), actorO.get().getPassword(), authorities);
