@@ -63,8 +63,8 @@ public class UsuarioService {
         }
         usuarioRepository.deleteById(id);
     }
-
-	public Optional<Actor> findByUsername(String username) {
+//He quitado Optional Actor
+	public Optional<Usuario> findByUsername(String username) {
 
 		
 		return usuarioRepository.findByUsername(username);
