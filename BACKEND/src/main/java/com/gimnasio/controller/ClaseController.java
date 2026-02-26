@@ -11,6 +11,7 @@ import com.gimnasio.entity.Clase;
 import com.gimnasio.entity.Monitor;
 import com.gimnasio.repository.ClaseRepository;
 import com.gimnasio.repository.MonitorRepository;
+import com.gimnasio.security.JWTUtils;
 import com.gimnasio.service.ClaseService;
 
 import java.util.List;
@@ -19,54 +20,48 @@ import java.util.List;
 @RequestMapping("/clase")
 public class ClaseController {
 
-    @Autowired
-    private ClaseService claseService;
+	@Autowired
+	private ClaseService claseService;
 
-    
-    
-    @Autowired
-    private MonitorRepository monitorRepository;
-    
-    @Autowired
-    private ClaseRepository claseRepository;
-    
-    /** Listar todas las clases */
-    @GetMapping
-    public List<Clase> listarClases() {
-        return claseService.findAll();
-    }
+	@Autowired
+	private JWTUtils jwtUtils;
 
-    /** Crear nueva clase (solo monitor) */
-    @PostMapping("/clase")
-    public ResponseEntity<Clase> crearClase(@RequestBody ClaseCreateDTO dto) {
+	@Autowired
+	private MonitorRepository monitorRepository;
 
-        // Buscar el monitor por id
-        Monitor monitor = monitorRepository.findById(dto.getMonitorId())
-                .orElseThrow(() -> new RuntimeException("Monitor no encontrado"));
+	@Autowired
+	private ClaseRepository claseRepository;
 
-        // Crear la clase
-        Clase clase = new Clase();
-        clase.setFecha_inicio(dto.getFecha_inicio());
-        clase.setFecha_fin(dto.getFecha_fin());
-        clase.setAforo(dto.getAforo());
-        clase.setMonitor(monitor);
+	/** Listar todas las clases */
+	@GetMapping
+	public List<Clase> listarClases() {
+		return claseService.findAll();
+	}
 
-        claseRepository.save(clase);
-        return ResponseEntity.ok(clase);
-    }
+	/** Crear nueva clase (solo monitor) */
+	@PostMapping()
+	public ResponseEntity<Clase> crearClase(@RequestBody Clase c) {
+		// Crear la clase
+		Clase clase = new Clase();
+		clase.setFecha_inicio(c.getFecha_inicio());
+		clase.setFecha_fin(c.getFecha_fin());
+		clase.setAforo(c.getAforo());
+		clase.setMonitor(jwtUtils.userLogin());
 
-    /** Reservar clase (usuario autenticado con JWT) */
-    @PostMapping("/{id}/reservar")
-    public ResponseEntity<Clase> reservarClase(
-            @PathVariable int id,
-            Authentication authentication) {
+		claseRepository.save(clase);
+		return ResponseEntity.ok(clase);
+	}
 
-        try {
-            String username = authentication.getName(); // usuario desde JWT
-            Clase claseReservada = claseService.reservarClasePorUsername(id, username);
-            return ResponseEntity.ok(claseReservada);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-    }
+	/** Reservar clase (usuario autenticado con JWT) */
+	@PostMapping("/{id}/reservar")
+	public ResponseEntity<Clase> reservarClase(@PathVariable int id, Authentication authentication) {
+
+		try {
+			String username = authentication.getName(); // usuario desde JWT
+			Clase claseReservada = claseService.reservarClasePorUsername(id, username);
+			return ResponseEntity.ok(claseReservada);
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+	}
 }
