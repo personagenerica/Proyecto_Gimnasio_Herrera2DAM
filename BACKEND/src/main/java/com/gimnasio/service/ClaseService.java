@@ -35,7 +35,6 @@ public class ClaseService {
 
     /** Crear nueva clase */
     public Clase create(@Valid Clase clase) {
-        validarFechas(clase);
         if (clase.getUsuarios() == null) {
             clase.setUsuarios(new ArrayList<>()); // inicializar lista
         }
@@ -47,7 +46,6 @@ public class ClaseService {
 
     /** Guardar clase existente */
     public Clase save(Clase clase) {
-        validarFechas(clase);
         if (clase.getAforo() < 0) {
             throw new IllegalArgumentException("El aforo no puede ser negativo");
         }
@@ -88,18 +86,25 @@ public class ClaseService {
         return claseRepository.save(clase);
     }
 
-    /** Validación de fechas */
-    private void validarFechas(Clase clase) {
-        Date ahora = new Date();
+    
+    public Clase anularReserva(int claseId, String username) {
+        Clase clase = claseRepository.findById(claseId)
+                .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 
-        if (clase.getFecha_inicio() == null || clase.getFecha_fin() == null) {
-            throw new IllegalArgumentException("Las fechas de inicio y fin no pueden ser nulas.");
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Inicializar lista si es null
+        if (clase.getUsuarios() == null) {
+            clase.setUsuarios(new ArrayList<>());
         }
-        if (!clase.getFecha_inicio().after(ahora)) {
-            throw new IllegalArgumentException("La fecha de inicio debe ser futura.");
-        }
-        if (!clase.getFecha_fin().after(clase.getFecha_inicio())) {
-            throw new IllegalArgumentException("La fecha de fin debe ser posterior a la de inicio.");
-        }
+
+      
+
+        // Agregar usuario
+        clase.getUsuarios().remove(usuario);
+
+        return claseRepository.save(clase);
     }
+ 
 }

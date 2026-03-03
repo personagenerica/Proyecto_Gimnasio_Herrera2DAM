@@ -64,4 +64,16 @@ public class ClaseController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 	}
+	
+	@PostMapping("/{id}/anular")
+	public ResponseEntity<Clase> anularReserva(@PathVariable int id, Authentication authentication) {
+
+		try {
+			String username = authentication.getName(); // usuario desde JWT
+			Clase claseAnulada = claseService.anularReserva(id, username);
+			return ResponseEntity.ok(claseAnulada);
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+	}
 }

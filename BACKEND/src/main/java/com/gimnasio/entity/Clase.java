@@ -1,5 +1,6 @@
 package com.gimnasio.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,10 +14,10 @@ import jakarta.validation.constraints.Min;
 public class Clase extends DomainEntity {
 
     @Future
-    private Date fecha_inicio;
+    private LocalDate fecha_inicio;
 
     @Future
-    private Date fecha_fin;
+    private LocalDate fecha_fin;
 
     @Min(0)
     private int aforo;
@@ -28,7 +29,7 @@ public class Clase extends DomainEntity {
     private Monitor monitor;
 
     // Constructor con todos los campos (sin id)
-    public Clase(@Future Date fecha_inicio, @Future Date fecha_fin, @Min(0) int aforo, List<Usuario> usuarios,
+    public Clase(@Future LocalDate fecha_inicio, @Future LocalDate fecha_fin, @Min(0) int aforo, List<Usuario> usuarios,
                  Monitor monitor) {
         super();
         this.fecha_inicio = fecha_inicio;
@@ -43,11 +44,11 @@ public class Clase extends DomainEntity {
     }
 
     // --- Getters y Setters ---
-    public Date getFecha_inicio() { return fecha_inicio; }
-    public void setFecha_inicio(Date fecha_inicio) { this.fecha_inicio = fecha_inicio; }
+    public LocalDate getFecha_inicio() { return fecha_inicio; }
+    public void setFecha_inicio(@Future LocalDate fecha_inicio) { this.fecha_inicio = fecha_inicio; }
 
-    public Date getFecha_fin() { return fecha_fin; }
-    public void setFecha_fin(Date fecha_fin) { this.fecha_fin = fecha_fin; }
+    public LocalDate getFecha_fin() { return fecha_fin; }
+    public void setFecha_fin(@Future LocalDate fecha_fin) { this.fecha_fin = fecha_fin; }
 
     public int getAforo() { return aforo; }
     public void setAforo(int aforo) { this.aforo = aforo; }
