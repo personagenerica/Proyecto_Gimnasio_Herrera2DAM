@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import com.gimnasio.ClaseCreateDTO;
 import com.gimnasio.entity.Clase;
 import com.gimnasio.entity.Monitor;
 import com.gimnasio.repository.ClaseRepository;

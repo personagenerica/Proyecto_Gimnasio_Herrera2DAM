@@ -24,13 +24,13 @@ public class SecurityConfiguration {
 	@Autowired
 	private JWTAuthenticationFilter JWTAuthenticationFilter;
 
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConf) throws Exception {
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authConf) throws Exception {
 		return authConf.getAuthenticationManager();
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+ PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
